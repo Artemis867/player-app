@@ -1,47 +1,19 @@
 # Player App
 
-This Application is to showcase the NBL and their current Statistics.
+This Application is to showcase the NBL player data and their current Statistics.
 
 Currently, two official plugins are available:
 
 ## Tech Stack / Libraries used
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+here are some list of libraries used for this app:
+ - ReactJS
+ - Vite
+ - ShadCN
+ - Tailwindcss
+ - Typescript
+ - Axios
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+#Reminders
+- make sure  `typescript config` , `tailwind config`, and `vite config` are configured properly
+- run `npm install`
