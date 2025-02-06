@@ -7,7 +7,10 @@ export default function Navbar() {
   const navigate = useNavigate();
     const navigationMarkup = (
       <nav className="bg-[#1c1c1c] border-gray-200 dark:bg-gray-900 dark:border-gray-700">
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4" onClick={(e) => {
+          e.preventDefault()
+          navigate('/')
+        }}>
             <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
               <img src={NBLIcon} className="h-8" alt="NBL Logo" width="40px"  />
               <span className="self-center text-2xl font-semibold whitespace-nowrap text-slate-50">NBL</span>
@@ -23,7 +26,7 @@ export default function Navbar() {
               <li>
                 <a href="#" className="block py-2 px-3 text-slate-50" aria-current="page" onClick={(e) => {
                   e.preventDefault();
-                  navigate('/home');
+                  navigate('/');
                 }}>Home</a>
               </li>
               <li>

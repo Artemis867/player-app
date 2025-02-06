@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/table"
 import PlayerInfo from "@/interface/player.interface";
 import { useNavigate } from "react-router-dom"
+import placeholderImage from "../assets/placeholder_img.png";
 
 
 
@@ -49,12 +50,12 @@ export function DataTableDemo({playerList = [] as any}) {
       header: () => (
         <span>Player</span>
       ),
-      cell: ({ row }) => (
-        <img
-          src={row.original.player_img}
+      cell: ({ row }) => {
+        return (<img
+          src={row.original.player_img !== '' ? row.original.player_img : placeholderImage}
           alt="Player"
           className="h-8 w-8 rounded"/>
-      ),
+      )},
     },
     {
       accessorKey: "full_name",
@@ -194,7 +195,7 @@ export function DataTableDemo({playerList = [] as any}) {
             colSpan={columns.length}
             className="h-24 text-center"
           >
-            No results.
+            Loading Data ...
           </TableCell>
         </TableRow>
       )}
