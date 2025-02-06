@@ -6,20 +6,22 @@ export const fetchPlayers = async () => {
   return response.data;
 };
 
-export const getPlayerDetail = async () => {
-  // 001c1bc8-bb4b-11ed-ba49-a3d5631247df$ // Hardcoded ID for testing
-
-  const response = await axios.get(`https://test.services.nbl.com.au/api_cache/nbl1/synergy?format=true&route=statistics/for/person/in/career/persons/004c8999-bb4b-11ed-ae4f-714b42d1feff`);
-  return response.data;
+export const getPlayerDetail = async (playerId: string | undefined | null) => {
+  try {
+    const response = await axios.get(`https://test.services.nbl.com.au/api_cache/nbl1/synergy?format=true&route=statistics/for/person/in/career/persons/${playerId}`);
+    return response.data;
+  } catch (error) {
+    console.log('Error fetching player details: ', error);
+  }
 }
 
-export const getPlayerDetailBySeason = async () => {
+export const getPlayerDetailBySeason = async (playerId: string | undefined | null) => {
 
-  const response = await axios.get(`https://test.services.nbl.com.au/api_cache/nbl1/synergy?format=true&route=statistics/for/person/in/career/seasons/persons/004c8999-bb4b-11ed-ae4f-714b42d1feff`);
-  return response.data;
-}
+  try {
+    const response = await axios.get(`https://test.services.nbl.com.au/api_cache/nbl1/synergy?format=true&route=statistics/for/person/in/career/seasons/persons/${playerId}`);
 
-export const getSeasonDate = async () => {
-  const response = await axios.get(`https://test.services.nbl.com.au/api_cache/nbl1/synergy?format=true&route=seasons/111f8f44-70a7-11ed-aae6-2d98d9fac4b4`);
-  return response.data;
+    return response.data;
+  } catch (error) {
+    console.log('Error fetching player details by season: ', error);
+  }
 }

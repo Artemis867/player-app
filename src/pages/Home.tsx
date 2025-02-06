@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import Navbar from "../components/Navbar";
 import { fetchPlayers } from "../common/players.common";
-import { DataTableDemo } from "@/components/DataTableDemo";
+import { PlayerListTable } from "@/components/PlayerListTable";
 
 export default function Home() {
   const [players, setPlayers] = useState([]);
@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <DataTableDemo playerList={players} />
+      <PlayerListTable playerList={players} />
     </>
   );
 }

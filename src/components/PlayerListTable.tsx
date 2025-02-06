@@ -35,7 +35,7 @@ import placeholderImage from "../assets/placeholder_img.png";
 
 
 
-export function DataTableDemo({playerList = [] as any}) {
+export function PlayerListTable({playerList = [] as any}) {
   
   const navigate = useNavigate();
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -109,8 +109,6 @@ export function DataTableDemo({playerList = [] as any}) {
   const onInitialData = (data: any) => {
     let arr = [] as PlayerInfo[];
     data.forEach((playerData: any) => {
-
-      console.log('[TRACK] playerData: ', playerData);
 
       arr.push({
         player_img: playerData.images[0]?.url ?? '',
@@ -195,7 +193,7 @@ export function DataTableDemo({playerList = [] as any}) {
             colSpan={columns.length}
             className="h-24 text-center"
           >
-            Loading Data ...
+            Loading list of players ...
           </TableCell>
         </TableRow>
       )}
