@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import { getPlayerDetail, getPlayerDetailBySeason } from "@/common/players.common";
+import { getPlayerDetail, getPlayerDetailBySeason, getSeasonRange } from "@/common/players.common";
 import Navbar from "@/components/Navbar";
 import { useLocation, useParams } from "react-router-dom";
 import { Separator } from "@/components/ui/separator";
@@ -29,10 +29,6 @@ export default function PlayerDetails() {
       const fetchPlayerDetail = async () => {
         const playerDetail = await getPlayerDetail(playerId);
 
-        if(playerDetail.data.length === 0) {
-          setInvalidPage(true);
-        }
-
         setPlayerDetail(playerDetail.data[0].statistics);
       };
 
@@ -52,9 +48,7 @@ export default function PlayerDetails() {
       const seasonDateAPIUrl = 'https://test.services.nbl.com.au/api_cache/nbl1/synergy?format=true&route=seasons';
       const urls =  [...playerDetailSeason.data].map(data => `${seasonDateAPIUrl}/${data.seasonId}`);
       const callSeasonDatas = async (urls: string[]) => {
-        const promises = urls.map(url => fetch(url).then(res => res.json()));
-        const results = await Promise.all(promises);
-        const range = [...results].map(result =>  `${result.data[0].added.substring(0, 4)} - ${result.data[0].endDate.substring(0, 4)}`);
+        const range = await getSeasonRange(urls);
         setSeasonDates(range);
       }
       callSeasonDatas(urls);

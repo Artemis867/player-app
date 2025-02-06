@@ -1,5 +1,6 @@
-import React from "react";
+import { useEffect } from "react";
 import { checkValidValue } from "@/common/players.common";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type PlayerDetail = {
   pointsPerGame: number;
@@ -13,7 +14,14 @@ interface HighlightStatsCardProps {
 }
 
 export default function HighlightStatsCard({ playerDetail }: HighlightStatsCardProps) {
-  
+
+  const skeletonMarkup = (
+    <Skeleton className="w-[320px] h-[100px]" />
+  );
+
+  useEffect(() => {
+    console.log('playerDetail', playerDetail);
+  }, [playerDetail]);
 
   return (
     <div className="w-[320px] h-[100px] border rounded-md border-indigo-600 p-1">
