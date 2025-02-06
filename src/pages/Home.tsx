@@ -11,7 +11,6 @@ export default function Home() {
       const players = await fetchPlayers();
       setPlayers(players.data);
     };
-
     fetchPlayersData();
   }, []);
 

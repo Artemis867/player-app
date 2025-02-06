@@ -3,4 +3,5 @@ export default interface PlayerInfo {
   full_name: string;
   nationality: string;
   status?: "ACTIVE" | "INACTIVE";
+  personId?: string;
 }
