@@ -2,7 +2,7 @@
 
 This Application is to showcase the NBL player data and their current Statistics.
 
-Currently, two official plugins are available:
+Currently, this test app is built with following libraries:
 
 ## Tech Stack / Libraries used
 
