@@ -18,23 +18,32 @@ export default function PlayerDetails() {
     assistsPerGame: 0,
     fieldGoalsEffectivePercentage: 0,
   });
+  const playerPersonalInfo = location.state;
   const [playerDetailSeason, setPlayerDetailSeason] = useState<{ data: any[] } | null>(null);
   const [seasonDates, setSeasonDates] = useState<string[] | null>(null);
-  const playerPersonalInfo = location.state;
+  const [invalidPage, setInvalidPage] = useState(playerPersonalInfo === null ? true : false);
 
   useEffect(() => {
-    const fetchPlayerDetail = async () => {
-      const playerDetail = await getPlayerDetail(playerId);
-      setPlayerDetail(playerDetail.data[0].statistics);
-    };
 
-    const fetchPlayerDetailBySeason = async () => { 
-      const playerDetailBySeason = await getPlayerDetailBySeason(playerId);
-      setPlayerDetailSeason(playerDetailBySeason);
-     };
+    if(!invalidPage) {
+      const fetchPlayerDetail = async () => {
+        const playerDetail = await getPlayerDetail(playerId);
 
-    fetchPlayerDetail();
-    fetchPlayerDetailBySeason();
+        if(playerDetail.data.length === 0) {
+          setInvalidPage(true);
+        }
+
+        setPlayerDetail(playerDetail.data[0].statistics);
+      };
+
+      const fetchPlayerDetailBySeason = async () => { 
+        const playerDetailBySeason = await getPlayerDetailBySeason(playerId);
+        setPlayerDetailSeason(playerDetailBySeason);
+      };
+
+      fetchPlayerDetail();
+      fetchPlayerDetailBySeason();
+    }
   }, []);
 
 
@@ -56,31 +65,35 @@ export default function PlayerDetails() {
   return (
     <>
       <Navbar/>
-      <div className="flex flex-wrap justify-center gap-4 mt-4">
-        <div className="w-[80px] h-[80px] justify-center items-center p-1">
-          <img
-            src={playerPersonalInfo.player_img !== '' ? playerPersonalInfo.player_img : placeholderImage}
-            alt="Player"
-            width="200"
-            height="200"
-            className="h-16 w-16 rounded"
-          />
-        </div>
-        <div className="w-[400px] h-[80px] p-1">
-          <span className="text-xs">Player Name</span>
-          <Separator/> 
-          <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-            {playerPersonalInfo.full_name}
-          </h2>
-        </div>
-        <HighlightStatsCard playerDetail={playerDetail} />
-      </div>
-      <div className="flex flex-wrap justify-center gap-4 mt-4">
-        <div className="w-[1200px] h-[auto] border border-black-600 p-2 overflow-x-auto rounded-md">
-          <BoxStatsHeader/>
-          {playerDetailSeason && playerDetailSeason.data.map((data, index) => <BoxStats seasonDates={seasonDates} data={data} index={index} />)}
-        </div>
-      </div>
+      {invalidPage ? (<div className="text-center text-2xl mt-4">404: PAGE NOT FOUND</div>) : (
+        <>
+          <div className="flex flex-wrap justify-center gap-4 mt-4">
+            <div className="w-[80px] h-[80px] justify-center items-center p-1">
+              <img
+                src={playerPersonalInfo.player_img !== '' ? playerPersonalInfo.player_img : placeholderImage}
+                alt="Player"
+                width="200"
+                height="200"
+                className="h-16 w-16 rounded"
+              />
+            </div>
+            <div className="w-[400px] h-[80px] p-1">
+              <span className="text-xs">Player Name</span>
+              <Separator/> 
+              <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+                {playerPersonalInfo.full_name}
+              </h2>
+            </div>
+            <HighlightStatsCard playerDetail={playerDetail} />
+          </div>
+          <div className="flex flex-wrap justify-center gap-4 mt-4">
+            <div className="w-[1200px] h-[auto] border border-black-600 p-2 overflow-x-auto rounded-md">
+              <BoxStatsHeader/>
+              {playerDetailSeason && playerDetailSeason.data.map((data, index) => <BoxStats seasonDates={seasonDates} data={data} index={index} />)}
+            </div>
+          </div>
+        </>
+      )}     
     </>
   );
 }

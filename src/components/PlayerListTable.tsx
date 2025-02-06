@@ -54,6 +54,7 @@ export function PlayerListTable({playerList = [] as any}) {
         return (<img
           src={row.original.player_img !== '' ? row.original.player_img : placeholderImage}
           alt="Player"
+          loading="lazy"
           className="h-8 w-8 rounded"/>
       )},
     },

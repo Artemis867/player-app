@@ -25,3 +25,10 @@ export const getPlayerDetailBySeason = async (playerId: string | undefined | nul
     console.log('Error fetching player details by season: ', error);
   }
 }
+
+export const checkValidValue = (data: number | null | undefined) => {
+  if (data == null || data == undefined) {
+    return '-';
+  }
+  return data.toFixed(1);
+};
