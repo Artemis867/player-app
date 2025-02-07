@@ -19,10 +19,6 @@ export default function HighlightStatsCard({ playerDetail }: HighlightStatsCardP
     <Skeleton className="w-[320px] h-[100px]" />
   );
 
-  useEffect(() => {
-    console.log('playerDetail', playerDetail);
-  }, [playerDetail]);
-
   return (
     <div className="w-[320px] h-[100px] border rounded-md border-indigo-600 p-1">
       <div className="text-center bg-blue-800">
